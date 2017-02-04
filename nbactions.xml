@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-profile test</actionName>
+            <displayName>profile test</displayName>
+            <goals>
+                <goal>mvn</goal>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>-s</goal>
+                <goal>settings/settings.xml</goal>
+                <goal>-Ptest</goal>
+            </goals>
+        </action>
+    </actions>
