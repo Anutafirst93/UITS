@@ -1,9 +1,3 @@
-<%-- 
-    Document   : home
-    Created on : Oct 6, 2016, 12:06:37 PM
-    Author     : user
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -51,13 +45,11 @@
                                 <thead>
                                     <tr class="info">
                                         <th>#</th>
-                                        <th>Login</th>
                                         <th>Firstname</th>
                                         <th>Lastname</th>
-                                        <th>email</th>
-                                        <th>phone</th>
-                                        <!--<th>Group</th>-->
-                                        <th>State</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
                                         <th>Edit</th>
                                         <th>Remove</th>
                                     </tr>
@@ -66,15 +58,11 @@
                                     <c:forEach var="user" items="${users}">
                                         <tr>
                                             <td>${user.id}</td>
-                                            <td>${user.username}</td>
                                             <td>${user.firstname}</td>
                                             <td>${user.lastname}</td>
                                             <td>${user.email}</td>
-                                            <td>${user.phone}</td>
                                             <td>
-                                                <c:forEach var="role" items="${user.userRolesList}">
-                                                    ${role.rolename}&nbsp;
-                                                </c:forEach>
+                                                ${user.userRole.rolename.role}
                                             </td>
                                             <!--<td>-->
                                             <c:choose>
@@ -88,7 +76,7 @@
                                             <!--</td>-->
                                             
                                             <td>
-                                                <a class="btn btn-primary" href="${base}/admin/user/edit/${user.id}">
+                                                <a class="btn btn-primary" href="${base}/admin/user/${user.id}">
                                                     Edit
                                                 </a>
                                             </td>
@@ -101,7 +89,7 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-                            <a class="btn btn-primary" href="${base}/admin/user/edit/0">
+                            <a class="btn btn-primary" href="${base}/admin/user/add">
                                 Add user
                             </a>
                         </div>

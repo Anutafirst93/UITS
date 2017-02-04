@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +27,8 @@ public class UserRoles implements Serializable,GrantedAuthority {
     @Column(name = "iduser")
     private Integer iduser;
     @Column(name = "rolename")
-    private String rolename;
+    @Enumerated(EnumType.STRING)
+    private Roles rolename;
 //    @JoinColumn(name = "iduser", referencedColumnName = "id")
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private User user;
@@ -45,11 +48,11 @@ public class UserRoles implements Serializable,GrantedAuthority {
         this.id = id;
     }
 
-    public String getRolename() {
+    public Roles getRolename() {
         return rolename;
     }
 
-    public void setRolename(String rolename) {
+    public void setRolename(Roles rolename) {
         this.rolename = rolename;
     }
 
@@ -94,12 +97,27 @@ public class UserRoles implements Serializable,GrantedAuthority {
 
     @Override
     public String toString() {
-        return "com.so.webblog.domain.UserRoles[ id=" + id + " ]";
+        return "UserRoles{" + "id=" + id + '}';
     }
+
 
     @Override
     public String getAuthority() {
-        return rolename;
+        return rolename.toString();
+    }
+    
+    public static enum Roles {
+        ROLE_ADMIN("ROLE_ADMIN"), ROLE_STUDENT("ROLE_STUDENT"), ROLE_MENTOR("ROLE_MENTOR");
+        private final String role;
+
+        private Roles(String role) {
+            this.role = role;
+        }
+
+        public String getRole() {
+            return role;
+        }
+        
     }
     
 }

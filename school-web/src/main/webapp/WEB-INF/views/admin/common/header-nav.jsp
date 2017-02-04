@@ -1,9 +1,3 @@
-<%-- 
-    Document   : header-nav
-    Created on : Oct 7, 2016, 2:56:14 PM
-    Author     : user
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">

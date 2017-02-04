@@ -34,9 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.csrf().disable();
             http.authorizeRequests()
-                .antMatchers("/student/**").access("hasRole('STUDENT')")
-                .antMatchers("/menthor/**").access("hasRole('MENTHOR')")
-                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+//                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .antMatchers("/admin/**").permitAll()
                 .and().formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/admin/home", false).and().logout().logoutUrl("/logout");
             http.sessionManagement().maximumSessions(100).sessionRegistry(sessionRegistry());
@@ -48,7 +47,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
         
         @Bean
-        //исп для указания мах кол-ва сессий
         public SessionRegistry sessionRegistry(){
             return new SessionRegistryImpl();
         }

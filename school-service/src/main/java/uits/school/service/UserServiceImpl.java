@@ -7,11 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uits.school.domain.UserRoles;
 
-/**
- *
- * @author user
- */
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -23,23 +21,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User byId(Integer id) {
-        return userDao.byId(id);
+        User user = userDao.byId(id);
+        user.setUserRole(userRolesDao.byUserId(user.getId()).get(0));
+        return user;
     }
 
     @Override
     @Transactional
     public User byUsername(String name) {
         User user = userDao.byUsername(name);
-        user.setUserRolesList(userRolesDao.byUserId(user.getId()));
+        user.setUserRole(userRolesDao.byUserId(user.getId()).get(0));
         return user;
     }
 
     @Override
     public List<User> list() {
         List<User> users = userDao.list();
-        /*for (User u : users) {
-            u.setUserRolesList(userRolesDao.byUserId(u.getId()));
-        }*/
+        for (User u : users) {
+            List<UserRoles> roles = userRolesDao.byUserId(u.getId());
+            if(!roles.isEmpty())
+            u.setUserRole(roles.get(0));
+        }
         return users;
     }
 

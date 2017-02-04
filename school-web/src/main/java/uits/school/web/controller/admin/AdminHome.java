@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import uits.school.domain.UserRoles;
 
 /**
  *
@@ -22,6 +23,7 @@ public class AdminHome {
     public ModelAndView adminHome(){
         ModelAndView mv = new ModelAndView("admin/home");
         mv.addObject("users", userService.list());
+        mv.addObject("roles", UserRoles.Roles.values());
         return mv;
     }
     
