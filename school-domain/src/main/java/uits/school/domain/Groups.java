@@ -6,19 +6,23 @@
 package uits.school.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author by ANNA ZHURAVLYOVA
+ * @author stan
  */
 @Entity
 @Table(name = "groups")
@@ -33,17 +37,21 @@ public class Groups implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "name")
-    private String name;
+    @Column(name = "active")
+    private boolean active;
     @Basic(optional = false)
     @Column(name = "id_teacher")
     private int idTeacher;
     @Basic(optional = false)
-    @Column(name = "active")
-    private boolean active;
+    @Column(name = "name")
+    private String name;
     @Basic(optional = false)
     @Column(name = "state")
     private String state;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groups", fetch = FetchType.LAZY)
+    private List<Journal> journalList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groups", fetch = FetchType.EAGER)
+    private List<GroupTime> groupTimeList;
 
     public Groups() {
     }
@@ -52,11 +60,11 @@ public class Groups implements Serializable {
         this.id = id;
     }
 
-    public Groups(Integer id, String name, int idTeacher, boolean active, String state) {
+    public Groups(Integer id, boolean active, int idTeacher, String name, String state) {
         this.id = id;
-        this.name = name;
-        this.idTeacher = idTeacher;
         this.active = active;
+        this.idTeacher = idTeacher;
+        this.name = name;
         this.state = state;
     }
 
@@ -68,12 +76,12 @@ public class Groups implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public boolean getActive() {
+        return active;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public int getIdTeacher() {
@@ -84,12 +92,12 @@ public class Groups implements Serializable {
         this.idTeacher = idTeacher;
     }
 
-    public boolean getActive() {
-        return active;
+    public String getName() {
+        return name;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getState() {
@@ -98,6 +106,22 @@ public class Groups implements Serializable {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public List<Journal> getJournalList() {
+        return journalList;
+    }
+
+    public void setJournalList(List<Journal> journalList) {
+        this.journalList = journalList;
+    }
+
+    public List<GroupTime> getGroupTimeList() {
+        return groupTimeList;
+    }
+
+    public void setGroupTimeList(List<GroupTime> groupTimeList) {
+        this.groupTimeList = groupTimeList;
     }
 
     @Override

@@ -7,21 +7,27 @@ package uits.school.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author Нюта
+ * @author stan
  */
 @Entity
 @Table(name = "journal")
@@ -35,15 +41,17 @@ public class Journal implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "id_group")
-    private int idGroup;
+    @Column(name = "comment")
+    private String comment;
     @Basic(optional = false)
     @Column(name = "lesson_date")
     @Temporal(TemporalType.DATE)
     private Date lessonDate;
-    @Column(name = "comment")
-    private String comment;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "journal", fetch = FetchType.LAZY)
+    private List<StudentsPresent> studentsPresentList;
+    @JoinColumn(name = "id_group", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Groups groups;
 
     public Journal() {
     }
@@ -52,9 +60,8 @@ public class Journal implements Serializable {
         this.id = id;
     }
 
-    public Journal(Integer id, int idGroup, Date lessonDate) {
+    public Journal(Integer id, Date lessonDate) {
         this.id = id;
-        this.idGroup = idGroup;
         this.lessonDate = lessonDate;
     }
 
@@ -66,12 +73,12 @@ public class Journal implements Serializable {
         this.id = id;
     }
 
-    public int getIdGroup() {
-        return idGroup;
+    public String getComment() {
+        return comment;
     }
 
-    public void setIdGroup(int idGroup) {
-        this.idGroup = idGroup;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Date getLessonDate() {
@@ -82,12 +89,20 @@ public class Journal implements Serializable {
         this.lessonDate = lessonDate;
     }
 
-    public String getComment() {
-        return comment;
+    public List<StudentsPresent> getStudentsPresentList() {
+        return studentsPresentList;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setStudentsPresentList(List<StudentsPresent> studentsPresentList) {
+        this.studentsPresentList = studentsPresentList;
+    }
+
+    public Groups getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 
     @Override

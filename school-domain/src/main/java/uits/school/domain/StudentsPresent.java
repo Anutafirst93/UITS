@@ -9,16 +9,19 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
- * @author Нюта
+ * @author stan
  */
 @Entity
 @Table(name = "students_present")
@@ -33,14 +36,14 @@ public class StudentsPresent implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "id_journal")
-    private int idJournal;
-    @Basic(optional = false)
     @Column(name = "id_student")
     private int idStudent;
     @Basic(optional = false)
     @Column(name = "present_on_lesson")
     private boolean presentOnLesson;
+    @JoinColumn(name = "id_journal", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Journal journal;
 
     public StudentsPresent() {
     }
@@ -49,9 +52,8 @@ public class StudentsPresent implements Serializable {
         this.id = id;
     }
 
-    public StudentsPresent(Integer id, int idJournal, int idStudent, boolean presentOnLesson) {
+    public StudentsPresent(Integer id, int idStudent, boolean presentOnLesson) {
         this.id = id;
-        this.idJournal = idJournal;
         this.idStudent = idStudent;
         this.presentOnLesson = presentOnLesson;
     }
@@ -62,14 +64,6 @@ public class StudentsPresent implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getIdJournal() {
-        return idJournal;
-    }
-
-    public void setIdJournal(int idJournal) {
-        this.idJournal = idJournal;
     }
 
     public int getIdStudent() {
@@ -86,6 +80,14 @@ public class StudentsPresent implements Serializable {
 
     public void setPresentOnLesson(boolean presentOnLesson) {
         this.presentOnLesson = presentOnLesson;
+    }
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
     }
 
     @Override

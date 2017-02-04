@@ -9,16 +9,19 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
- * @author Нюта
+ * @author stan
  */
 @Entity
 @Table(name = "group_time")
@@ -33,14 +36,14 @@ public class GroupTime implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "id_group")
-    private int idGroup;
-    @Basic(optional = false)
     @Column(name = "day_of_week")
     private String dayOfWeek;
     @Basic(optional = false)
     @Column(name = "start_time")
     private String startTime;
+    @JoinColumn(name = "id_group", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Groups groups;
 
     public GroupTime() {
     }
@@ -49,9 +52,8 @@ public class GroupTime implements Serializable {
         this.id = id;
     }
 
-    public GroupTime(Integer id, int idGroup, String dayOfWeek, String startTime) {
+    public GroupTime(Integer id, String dayOfWeek, String startTime) {
         this.id = id;
-        this.idGroup = idGroup;
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
     }
@@ -62,14 +64,6 @@ public class GroupTime implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getIdGroup() {
-        return idGroup;
-    }
-
-    public void setIdGroup(int idGroup) {
-        this.idGroup = idGroup;
     }
 
     public String getDayOfWeek() {
@@ -86,6 +80,14 @@ public class GroupTime implements Serializable {
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public Groups getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 
     @Override
