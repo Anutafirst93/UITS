@@ -1,13 +1,11 @@
 package uits.school.domain;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +52,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "active")
     private boolean active;
     
-    private transient List<UserRoles> userRolesList;
+    private transient UserRoles userRole;
     
    
 
@@ -140,12 +138,12 @@ public class User implements Serializable, UserDetails {
         this.active = active;
     }
 
-    public List<UserRoles> getUserRolesList() {
-        return userRolesList;
+    public UserRoles getUserRole() {
+        return userRole;
     }
 
-    public void setUserRolesList(List<UserRoles> userRolesList) {
-        this.userRolesList = userRolesList;
+    public void setUserRole(UserRoles userRole) {
+        this.userRole = userRole;
     }
     
     
@@ -153,7 +151,7 @@ public class User implements Serializable, UserDetails {
     @Override
     @SuppressWarnings("PMD")
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userRolesList;
+        return Arrays.asList(new GrantedAuthority[]{userRole});
     }
 
     @Override
@@ -199,6 +197,8 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String toString() {
-        return "com.so.webblog.domain.User[ id=" + id + " ]";
-    } 
+        return "User{" + "id=" + id + '}';
+    }
+
+    
 }

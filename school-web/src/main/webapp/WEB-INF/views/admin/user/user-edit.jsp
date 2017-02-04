@@ -60,6 +60,7 @@
                 <div class="row">
                     <div class="main main-content">
                         <div class="table-responsive">
+                            <form method="POST">
                             <table class="table table-bordered tbl-user">                                                   
                                 <thead>
                                     <tr class="info">
@@ -69,23 +70,13 @@
                                 </thead>
                                 <tbody>
                                     <tr class="info">
-                                        <td class="">
-                                            <div class="tbl-user-label">
-                                                <label for="user-login" class="col-sm-2 control-label tbl-user-label">Login</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <input type="text" name="" class="form-control" value="${user.username}" id="user-login" disabled="disabled"/>
-                                        </td>
-                                    </tr>
-                                    <tr class="info">
                                         <td>
                                             <div class=" tbl-user-label">
                                                 <label for="user-firstname" class="col-sm-2 control-label tbl-user-label">Firstname</label>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="" class="form-control" value="${user.firstname}" id="user-firstname"/>
+                                            <input type="text" name="firstname" class="form-control" value="${user.firstname}" id="user-firstname"/>
                                         </td>
                                     </tr>
                                     <tr class="info">
@@ -95,7 +86,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="" class="form-control" value="${user.lastname}" id="user-lastname"/>
+                                            <input type="text" name="lastname" class="form-control" value="${user.lastname}" id="user-lastname"/>
                                         </td>
                                     </tr>
                                     <tr class="info">
@@ -105,7 +96,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="" class="form-control" value="${user.email}" id="user-email"/>
+                                            <input type="text" name="email" class="form-control" value="${user.email}" id="user-email"/>
                                         </td>
                                     </tr>
                                     <tr class="info">
@@ -115,20 +106,21 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="" class="form-control" value="${user.phone}" id="user-phone"/>
+                                            <input type="text" name="phone" class="form-control" value="${user.phone}" id="user-phone"/>
                                         </td>
                                     </tr>
                                     <tr class="info">
                                         <td>Group</td>
                                         <td>
-                                            <select class="form-control">
+                                            <select class="form-control" name="role">
                                                 <c:forEach var="role" items="${roles}">
                                                     <c:choose>
-                                                        <c:when test="${user.userRole.nameUserRole == role.nameUserRole}">
-                                                            <option value="${role.nameUserRole}" selected="selected">${role.nameUserRole}</option>
+                                                        <c:when test="${user.userRole.rolename == role}">
+                                                            <option value="${role.role}" selected="selected">${role.role}</option>
                                                         </c:when>
+                                                        
                                                         <c:otherwise>
-                                                            <option value="${role.nameUserRole}">${role.nameUserRole}</option>
+                                                            <option value="${role.role}">${role.role}</option>
                                                         </c:otherwise>
                                                     </c:choose>
                                                     
@@ -136,28 +128,17 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr class="info">
-                                        <td>State</td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${user.active}">
-                                                    <input class="checkbox form-control chbox-medium" type="checkbox" value="status" checked="checked"/>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <input class="checkbox form-controls chbox-medium" type="checkbox" value="status"/>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                    </tr>
+                                    
                                     <tr class="info">
                                         <td>&nbsp;</td>
                                         <td>
-                                            <button class="btn btn-primary">Save</button>
-                                            <button class="btn btn-primary">Cancel</button>
+                                            <input type="submit" class="btn btn-primary" value="Save">
+                                            <a href="${base}/admin/home" class="btn btn-primary">Cancel</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            </form>
                         </div>
                     </div>
                 </div>
