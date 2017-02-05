@@ -43,50 +43,38 @@
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr class="info">
-                                        <th>#</th>
-                                        <th>group name</th>
-                                        <th>teacher</th>
-                                        <th>days</th>
-                                        <th>view</th>
-                                        <th>Archive</th>
-                                        
-                                    </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="gr" items="${groups}">
-                                        <tr>
-                                            <td>${gr.id}</td>
-                                            <td>${gr.name}</td>
-                                            <td>${gr.teacherName}</td>
-                                            <td>
-                                                <ul>
-                                                <c:forEach var="day" items="${gr.days}">
-                                                    <li>${day}</li>
+                                    
+                                    <tr>
+                                        <td class="info">Group</td>
+                                        <td class="info">${group.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Time</td>
+                                        <td>
+                                            <ul>
+                                            <c:forEach var="day" items="${group.days}">
+                                                <li>${day}</li>
+                                            </c:forEach>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2  ">
+                                            <ul>
+                                                <c:forEach var="student" items="${students}">
+                                                    <li>
+                                                        ${student.lastname}&nbsp;
+                                                        ${student.lastname}&nbsp;
                                                 </c:forEach>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary" href="${base}/admin/groups/${gr.id}">
-                                                    view
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-primary btn-danger" href="${base}/admin/groups/${gr.id}">
-                                                    Archive
-                                                </a>
-                                            </td>
-<!--                                            <td>
-                                                <div class="btn btn-danger">
-                                                    Remove
-                                                </div>
-                                            </td>-->
-                                        </tr>
-                                    </c:forEach>
+                                            </ul>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
-                            <a class="btn btn-primary" href="${base}/admin/group/add">
-                                Add Group
+                            <a class="btn btn-primary" href="${base}/admin/groups">
+                                back
                             </a>
                         </div>
                     </div>

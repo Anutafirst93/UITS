@@ -50,7 +50,7 @@ public class Groups implements Serializable {
     private String state;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "groups", fetch = FetchType.LAZY)
     private List<Journal> journalList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groups", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groups", fetch = FetchType.LAZY)
     private List<GroupTime> groupTimeList;
 
     public Groups() {
